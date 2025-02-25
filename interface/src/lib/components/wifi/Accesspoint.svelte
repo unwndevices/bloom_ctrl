@@ -64,21 +64,6 @@
 		}
 	});
 
-	let provisionMode = [
-		{
-			id: 0,
-			text: `Always`
-		},
-		{
-			id: 1,
-			text: `When WiFi Disconnected`
-		},
-		{
-			id: 2,
-			text: `Never`
-		}
-	];
-
 	let apStatusDescription = [
 		{ bg_color: 'bg-success', text_color: 'text-success-content', description: 'Active' },
 		{ bg_color: 'bg-error', text_color: 'text-error-content', description: 'Inactive' },
@@ -87,8 +72,6 @@
 
 	let formErrors = {
 		ssid: false,
-		channel: false,
-		max_clients: false,
 		local_ip: false,
 		gateway_ip: false,
 		subnet_mask: false
@@ -124,24 +107,6 @@
 			formErrors.ssid = true;
 		} else {
 			formErrors.ssid = false;
-		}
-
-		// Validate Channel
-		let channel = Number(apSettings.channel);
-		if (1 > channel || channel > 13) {
-			valid = false;
-			formErrors.channel = true;
-		} else {
-			formErrors.channel = false;
-		}
-
-		// Validate max_clients
-		let maxClients = Number(apSettings.max_clients);
-		if (1 > maxClients || maxClients > 8) {
-			valid = false;
-			formErrors.max_clients = true;
-		} else {
-			formErrors.max_clients = false;
 		}
 
 		// RegEx for IPv4
@@ -192,7 +157,7 @@
 			>
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
 					<div
-						class="mask mask-hexagon h-auto w-10 {apStatusDescription[apStatus.status].bg_color}"
+						class="mask mask-squircle h-auto w-10 {apStatusDescription[apStatus.status].bg_color}"
 					>
 						<AP class="h-auto w-full scale-75 {apStatusDescription[apStatus.status].text_color}" />
 					</div>
@@ -205,7 +170,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10">
+					<div class="mask mask-squircle bg-primary h-auto w-10">
 						<Home class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -217,7 +182,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10">
+					<div class="mask mask-squircle bg-primary h-auto w-10">
 						<MAC class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -229,7 +194,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10">
+					<div class="mask mask-squircle bg-primary h-auto w-10">
 						<Devices class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -264,22 +229,6 @@
 						bind:this={formField}
 					>
 						<div>
-							<label class="label" for="apmode">
-								<span class="label-text">Provide Access Point ...</span>
-							</label>
-							<select
-								class="select select-bordered w-full"
-								id="apmode"
-								bind:value={apSettings.provision_mode}
-							>
-								{#each provisionMode as mode}
-									<option value={mode.id}>
-										{mode.text}
-									</option>
-								{/each}
-							</select>
-						</div>
-						<div>
 							<label class="label" for="ssid">
 								<span class="label-text text-md">SSID</span>
 							</label>
@@ -306,49 +255,6 @@
 								<span class="label-text text-md">Password</span>
 							</label>
 							<InputPassword bind:value={apSettings.password} id="pwd" />
-						</div>
-						<div>
-							<label class="label" for="channel">
-								<span class="label-text text-md">Preferred Channel</span>
-							</label>
-							<input
-								type="number"
-								min="1"
-								max="13"
-								class="input input-bordered invalid:border-error w-full invalid:border-2 {formErrors.channel
-									? 'border-error border-2'
-									: ''}"
-								bind:value={apSettings.channel}
-								id="channel"
-								required
-							/>
-							<label class="label" for="channel">
-								<span class="label-text-alt text-error {formErrors.channel ? '' : 'hidden'}"
-									>Must be channel 1 to 13</span
-								>
-							</label>
-						</div>
-
-						<div>
-							<label class="label" for="clients">
-								<span class="label-text text-md">Max Clients</span>
-							</label>
-							<input
-								type="number"
-								min="1"
-								max="8"
-								class="input input-bordered invalid:border-error w-full invalid:border-2 {formErrors.max_clients
-									? 'border-error border-2'
-									: ''}"
-								bind:value={apSettings.max_clients}
-								id="clients"
-								required
-							/>
-							<label class="label" for="clients">
-								<span class="label-text-alt text-error {formErrors.max_clients ? '' : 'hidden'}"
-									>Maximum 8 clients allowed</span
-								>
-							</label>
 						</div>
 
 						<div>
@@ -418,15 +324,6 @@
 								>
 							</label>
 						</div>
-
-						<label class="label my-auto cursor-pointer justify-start gap-4">
-							<input
-								type="checkbox"
-								bind:checked={apSettings.ssid_hidden}
-								class="checkbox checkbox-primary"
-							/>
-							<span class="">Hide SSID</span>
-						</label>
 
 						<div class="place-self-end">
 							<button class="btn btn-primary" type="submit">Apply Settings</button>

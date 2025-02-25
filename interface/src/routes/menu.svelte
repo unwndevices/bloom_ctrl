@@ -93,8 +93,22 @@
 		{
 			title: 'Connections',
 			icon: Remote,
-			feature: $page.data.features.mqtt || $page.data.features.ntp,
+			feature: $page.data.features.mqtt || $page.data.features.ntp || true,
 			submenu: [
+				{
+					title: 'WiFi Station',
+					icon: Router,
+					href: '/connections/wifi/sta',
+					feature: true,
+					active: false
+				},
+				{
+					title: 'Access Point',
+					icon: AP,
+					href: '/connections/wifi/ap',
+					feature: true,
+					active: false
+				},
 				{
 					title: 'MQTT',
 					icon: MQTT,
@@ -107,27 +121,6 @@
 					icon: NTP,
 					href: '/connections/ntp',
 					feature: $page.data.features.ntp,
-					active: false
-				}
-			]
-		},
-		{
-			title: 'WiFi',
-			icon: WiFi,
-			feature: true,
-			submenu: [
-				{
-					title: 'WiFi Station',
-					icon: Router,
-					href: '/wifi/sta',
-					feature: true,
-					active: false
-				},
-				{
-					title: 'Access Point',
-					icon: AP,
-					href: '/wifi/ap',
-					feature: true,
 					active: false
 				}
 			]

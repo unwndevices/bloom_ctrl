@@ -327,7 +327,7 @@
 			>
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
 					<div
-						class="mask mask-hexagon h-auto w-10 {wifiStatus.status === 3
+						class="mask mask-squircle h-auto w-10 {wifiStatus.status === 3
 							? 'bg-success'
 							: 'bg-error'}"
 					>
@@ -346,7 +346,7 @@
 				</div>
 				{#if wifiStatus.status === 3}
 					<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-						<div class="mask mask-hexagon bg-primary h-auto w-10">
+						<div class="mask mask-squircle bg-primary h-auto w-10">
 							<SSID class="text-primary-content h-auto w-full scale-75" />
 						</div>
 						<div>
@@ -358,7 +358,7 @@
 					</div>
 
 					<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-						<div class="mask mask-hexagon bg-primary h-auto w-10">
+						<div class="mask mask-squircle bg-primary h-auto w-10">
 							<Home class="text-primary-content h-auto w-full scale-75" />
 						</div>
 						<div>
@@ -370,7 +370,7 @@
 					</div>
 
 					<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-						<div class="mask mask-hexagon bg-primary h-auto w-10">
+						<div class="mask mask-squircle bg-primary h-auto w-10">
 							<WiFi class="text-primary-content h-auto w-full scale-75" />
 						</div>
 						<div>
@@ -403,7 +403,7 @@
 					transition:slide|local={{ duration: 300, easing: cubicOut }}
 				>
 					<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-						<div class="mask mask-hexagon bg-primary h-auto w-10">
+						<div class="mask mask-squircle bg-primary h-auto w-10">
 							<MAC class="text-primary-content h-auto w-full scale-75" />
 						</div>
 						<div>
@@ -415,7 +415,7 @@
 					</div>
 
 					<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-						<div class="mask mask-hexagon bg-primary h-auto w-10">
+						<div class="mask mask-squircle bg-primary h-auto w-10">
 							<Channel class="text-primary-content h-auto w-full scale-75" />
 						</div>
 						<div>
@@ -427,7 +427,7 @@
 					</div>
 
 					<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-						<div class="mask mask-hexagon bg-primary h-auto w-10">
+						<div class="mask mask-squircle bg-primary h-auto w-10">
 							<Gateway class="text-primary-content h-auto w-full scale-75" />
 						</div>
 						<div>
@@ -439,7 +439,7 @@
 					</div>
 
 					<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-						<div class="mask mask-hexagon bg-primary h-auto w-10">
+						<div class="mask mask-squircle bg-primary h-auto w-10">
 							<Subnet class="text-primary-content h-auto w-full scale-75" />
 						</div>
 						<div>
@@ -451,7 +451,7 @@
 					</div>
 
 					<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-						<div class="mask mask-hexagon bg-primary h-auto w-10">
+						<div class="mask mask-squircle bg-primary h-auto w-10">
 							<DNS class="text-primary-content h-auto w-full scale-75" />
 						</div>
 						<div>
@@ -512,7 +512,7 @@
 						>
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-								<div class="mask mask-hexagon bg-primary h-auto w-10 shrink-0">
+								<div class="mask mask-squircle bg-primary h-auto w-10 shrink-0">
 									<Router class="text-primary-content h-auto w-full scale-75" />
 								</div>
 								<div>

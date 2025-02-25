@@ -135,7 +135,7 @@
 			>
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
 					<div
-						class="mask mask-hexagon h-auto w-10 {mqttStatus.connected === true
+						class="mask mask-squircle h-auto w-10 {mqttStatus.connected === true
 							? 'bg-success'
 							: 'bg-error'}"
 					>
@@ -160,7 +160,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10">
+					<div class="mask mask-squircle bg-primary h-auto w-10">
 						<Client class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>

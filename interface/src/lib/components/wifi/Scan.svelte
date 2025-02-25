@@ -116,7 +116,7 @@
 										storeNetwork(network.ssid);
 									}}
 								>
-									<div class="mask mask-hexagon bg-primary h-auto w-10 shrink-0">
+									<div class="mask mask-squircle bg-primary h-auto w-10 shrink-0">
 										<Network class="text-primary-content h-auto w-full scale-75" />
 									</div>
 									<div>

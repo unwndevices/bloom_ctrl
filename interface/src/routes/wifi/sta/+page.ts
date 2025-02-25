@@ -1,7 +1,7 @@
 import type { PageLoad } from './$types';
+import { goto } from '$app/navigation';
 
 export const load = (async () => {
-	return {
-		title: 'WiFi Station'
-	};
-}) satisfies PageLoad;
+	goto('/connections/wifi/sta');
+	return;
+}) satisfies PageLoad; 

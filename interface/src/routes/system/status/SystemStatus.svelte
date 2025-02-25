@@ -165,7 +165,7 @@
 				transition:slide|local={{ duration: 300, easing: cubicOut }}
 			>
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<CPU class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -177,7 +177,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<SDK class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -189,7 +189,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<CPP class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -201,7 +201,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<Speed class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -215,7 +215,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<Heap class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -229,7 +229,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<Pyramid class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -243,7 +243,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<Sketch class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -268,7 +268,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<Flash class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -282,7 +282,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<Folder class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -306,7 +306,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<Temperature class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -320,7 +320,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10">
+					<div class="mask mask-squircle bg-primary h-auto w-10">
 						<Stopwatch class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>
@@ -332,7 +332,7 @@
 				</div>
 
 				<div class="rounded-box bg-base-100 flex items-center space-x-3 px-4 py-2">
-					<div class="mask mask-hexagon bg-primary h-auto w-10 flex-none">
+					<div class="mask mask-squircle bg-primary h-auto w-10 flex-none">
 						<Power class="text-primary-content h-auto w-full scale-75" />
 					</div>
 					<div>

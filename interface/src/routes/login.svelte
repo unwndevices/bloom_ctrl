@@ -49,7 +49,7 @@
 
 <div class="hero from-primary/30 to-secondary/30 min-h-screen bg-gradient-to-br">
 	<div
-		class="card lg:card-side bg-base-100 shadow-primary face shadow-2xl {loginFailed
+		class="card lg:card-side bg-base-100 shadow-neutral face shadow-2xl {loginFailed
 			? 'failure border-error border-2'
 			: ''}"
 		in:fly={{ delay: 200, y: 100, duration: 500 }}
