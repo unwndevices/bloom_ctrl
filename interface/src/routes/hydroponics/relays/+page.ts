@@ -6,5 +6,7 @@ export const load: PageLoad = async ({ fetch, depends }) => {
 
 	// In a real implementation, we would fetch relay data from the ESP32 here
 	// For now, we'll just return an empty object
-	return {};
+	return {
+		title: 'Relays'
+	};
 }; 

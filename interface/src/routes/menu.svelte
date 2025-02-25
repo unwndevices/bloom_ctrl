@@ -49,7 +49,7 @@
 
 	let menuItems = [
 		{
-			title: 'Hydroponics',
+			title: 'Control',
 			icon: Dashboard,
 			feature: true,
 			submenu: [
@@ -197,7 +197,7 @@
 			{#if menuItem.feature}
 				<li>
 					{#if menuItem.submenu}
-						<details>
+						<details open={menuItem.title === 'Control'}>
 							<summary class="text-lg font-bold">
 								<svelte:component this={menuItem.icon} class="h-6 w-6" />
 								{menuItem.title}
@@ -208,7 +208,8 @@
 										<li class="hover-bordered">
 											<a
 												href={subMenuItem.href}
-												class:bg-base-100={subMenuItem.active}
+												class:border-primary={subMenuItem.active}
+												class:border-2={subMenuItem.active}
 												class="text-ml font-bold"
 												on:click={() => {
 													setActiveMenuItem(subMenuItem.title);
@@ -227,7 +228,8 @@
 					{:else}
 						<a
 							href={menuItem.href}
-							class:bg-base-100={menuItem.active}
+							class:border-primary={menuItem.active}
+							class:border-2={menuItem.active}
 							class="text-lg font-bold"
 							on:click={() => {
 								setActiveMenuItem(menuItem.title);
