@@ -15,7 +15,7 @@
 		name: string;
 		state: boolean;
 		pin: number;
-		type: 'pump' | 'light' | 'fan' | 'nutrient' | 'other';
+		type: 'pump' | 'light' | 'extra' | 'other';
 	};
 
 	type Schedule = {
@@ -297,10 +297,8 @@
 				return '💧';
 			case 'light':
 				return '💡';
-			case 'fan':
-				return '🌀';
-			case 'nutrient':
-				return '🧪';
+			case 'extra':
+				return '🔌';
 			default:
 				return '⚙️';
 		}

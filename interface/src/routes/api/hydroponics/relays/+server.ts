@@ -7,29 +7,22 @@ const mockRelays = [
     id: 1,
     name: 'Water Pump',
     state: false,
-    pin: 5,
+    pin: 7,
     type: 'pump'
   },
   {
     id: 2,
     name: 'Grow Lights',
     state: false,
-    pin: 4,
+    pin: 10,
     type: 'light'
   },
   {
     id: 3,
-    name: 'Ventilation Fan',
+    name: 'Extra',
     state: false,
-    pin: 2,
-    type: 'fan'
-  },
-  {
-    id: 4,
-    name: 'Nutrient Pump',
-    state: false,
-    pin: 15,
-    type: 'nutrient'
+    pin: 0,
+    type: 'extra'
   }
 ];
 

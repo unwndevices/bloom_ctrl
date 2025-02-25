@@ -20,7 +20,7 @@ export interface Relay {
   name: string;
   state: boolean;
   pin: number;
-  type: 'pump' | 'light' | 'fan' | 'nutrient' | 'other';
+  type: 'pump' | 'light' | 'extra' | 'other';
 }
 
 // Schedule interface
@@ -42,8 +42,6 @@ export interface HydroponicsSettings {
   lightOffTime: string;
   pumpCycleOnDuration: number;
   pumpCycleOffDuration: number;
-  nutrientDosingEnabled: boolean;
-  phCorrectionEnabled: boolean;
 }
 
 /**
