@@ -1,5 +1,5 @@
 <script lang="ts">
-	import logo from '$lib/assets/logo.png';
+	import logo from '$lib/assets/logo.svg';
 	import Github from '~icons/tabler/brand-github';
 	import Discord from '~icons/tabler/brand-discord';
 	import Users from '~icons/tabler/users';
@@ -147,7 +147,7 @@
 		class="rounded-box mb-4 flex items-center hover:scale-[1.02] active:scale-[0.98]"
 		onclick={() => setActiveMenuItem('')}
 	>
-		<img src={logo} alt="Logo" class="h-12 w-12" />
+		<img src={logo} alt="Logo" class="h-12 w-auto aspect-auto" />
 		<h1 class="px-4 text-2xl font-bold">{page.data.appName}</h1>
 	</a>
 	<ul class="menu rounded-box menu-vertical flex-nowrap overflow-y-auto">
