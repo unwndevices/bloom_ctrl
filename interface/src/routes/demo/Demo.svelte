@@ -5,27 +5,41 @@
 	import { notifications } from '$lib/components/toasts/notifications';
 	import SettingsCard from '$lib/components/SettingsCard.svelte';
 	import Light from '~icons/tabler/bulb';
+	import Pump from '~icons/tabler/droplet';
+	import Extra from '~icons/tabler/plug';
 	import Info from '~icons/tabler/info-circle';
 	import Save from '~icons/tabler/device-floppy';
 	import Reload from '~icons/tabler/reload';
 	import { socket } from '$lib/stores/socket';
-	import type { LightState } from '$lib/types/models';
+	import type { RelayState } from '$lib/types/models';
 
-	let lightState: LightState = $state({ led_on: false });
+	let relayState: RelayState = $state({
+		light_relay: false,
+		pump_relay: false,
+		extra_relay: false
+	});
 
-	let lightOn = $state(false);
+	let relayControls = $state({
+		light_relay: false,
+		pump_relay: false,
+		extra_relay: false
+	});
 
-	async function getLightstate() {
+	async function getRelayState() {
 		try {
-			const response = await fetch('/rest/lightState', {
+			const response = await fetch('/rest/relayState', {
 				method: 'GET',
 				headers: {
 					Authorization: page.data.features.security ? 'Bearer ' + $user.bearer_token : 'Basic',
 					'Content-Type': 'application/json'
 				}
 			});
-			const light = await response.json();
-			lightOn = light.led_on;
+			const state = await response.json();
+			relayControls = {
+				light_relay: state.light_relay,
+				pump_relay: state.pump_relay,
+				extra_relay: state.extra_relay
+			};
 		} catch (error) {
 			console.error('Error:', error);
 		}
@@ -33,28 +47,32 @@
 	}
 
 	onMount(() => {
-		socket.on<LightState>('led', (data) => {
-			lightState = data;
+		socket.on<RelayState>('relay', (data) => {
+			relayState = data;
 		});
-		getLightstate();
+		getRelayState();
 	});
 
-	onDestroy(() => socket.off('led'));
+	onDestroy(() => socket.off('relay'));
 
-	async function postLightstate() {
+	async function postRelayState() {
 		try {
-			const response = await fetch('/rest/lightState', {
+			const response = await fetch('/rest/relayState', {
 				method: 'POST',
 				headers: {
 					Authorization: page.data.features.security ? 'Bearer ' + $user.bearer_token : 'Basic',
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ led_on: lightOn })
+				body: JSON.stringify(relayControls)
 			});
 			if (response.status == 200) {
-				notifications.success('Light state updated.', 3000);
-				const light = await response.json();
-				lightOn = light.led_on;
+				notifications.success('Relay states updated.', 3000);
+				const state = await response.json();
+				relayControls = {
+					light_relay: state.light_relay,
+					pump_relay: state.pump_relay,
+					extra_relay: state.extra_relay
+				};
 			} else {
 				notifications.error('User not authorized.', 3000);
 			}
@@ -64,56 +82,124 @@
 	}
 </script>
 
-<SettingsCard collapsible={false}>
-	{#snippet icon()}
-		<Light  class="lex-shrink-0 mr-2 h-6 w-6 self-end" />
-	{/snippet}
-	{#snippet title()}
-		<span >Light State</span>
-	{/snippet}
+<SettingsCard>
+	<svelte:fragment slot="icon">
+		<Light class="flex-shrink-0 mr-2 h-6 w-6 self-end" />
+	</svelte:fragment>
+	<svelte:fragment slot="title">
+		<span>Relay Controls</span>
+	</svelte:fragment>
 	<div class="w-full">
-		<h1 class="text-xl font-semibold">REST Example</h1>
+		<h1 class="text-xl font-semibold">REST Controls</h1>
 		<div class="alert alert-info my-2 shadow-lg">
 			<Info class="h-6 w-6 flex-shrink-0 stroke-current" />
-			<span>The form below controls the LED via the RESTful service exposed by the ESP device.</span
-			>
+			<span>Control your hydroponic system's relays using the REST API.</span>
 		</div>
-		<div class="flex flex-row flex-wrap justify-between gap-x-2">
-			<div class="form-control w-52">
-				<label class="label cursor-pointer">
-					<span class="mr-4">Light State?</span>
-					<input type="checkbox" bind:checked={lightOn} class="checkbox checkbox-primary" />
-				</label>
+		<div class="flex flex-col gap-y-4">
+			<div class="flex flex-row flex-wrap justify-between gap-x-2 items-center">
+				<div class="form-control w-52">
+					<label class="label cursor-pointer">
+						<Light class="mr-2 h-5 w-5" />
+						<span class="mr-4">Grow Light</span>
+						<input
+							type="checkbox"
+							bind:checked={relayControls.light_relay}
+							class="checkbox checkbox-primary"
+						/>
+					</label>
+				</div>
+				<div class="form-control w-52">
+					<label class="label cursor-pointer">
+						<Pump class="mr-2 h-5 w-5" />
+						<span class="mr-4">Water Pump</span>
+						<input
+							type="checkbox"
+							bind:checked={relayControls.pump_relay}
+							class="checkbox checkbox-primary"
+						/>
+					</label>
+				</div>
+				<div class="form-control w-52">
+					<label class="label cursor-pointer">
+						<Extra class="mr-2 h-5 w-5" />
+						<span class="mr-4">Extra Relay</span>
+						<input
+							type="checkbox"
+							bind:checked={relayControls.extra_relay}
+							class="checkbox checkbox-primary"
+						/>
+					</label>
+				</div>
+				<div class="flex-grow"></div>
+				<div class="flex flex-row gap-x-2">
+					<button class="btn btn-primary inline-flex items-center" on:click={postRelayState}
+						><Save class="mr-2 h-5 w-5" /><span>Save</span></button
+					>
+					<button class="btn btn-primary inline-flex items-center" on:click={getRelayState}
+						><Reload class="mr-2 h-5 w-5" /><span>Reload</span></button
+					>
+				</div>
 			</div>
-			<div class="flex-grow"></div>
-			<button class="btn btn-primary inline-flex items-center" onclick={postLightstate}
-				><Save class="mr-2 h-5 w-5" /><span>Save</span></button
-			>
-			<button class="btn btn-primary inline-flex items-center" onclick={getLightstate}
-				><Reload class="mr-2 h-5 w-5" /><span>Reload</span></button
-			>
 		</div>
+
 		<div class="divider"></div>
-		<h1 class="text-xl font-semibold">Event Socket Example</h1>
+		<h1 class="text-xl font-semibold">WebSocket Controls</h1>
 		<div class="alert alert-info my-2 shadow-lg">
 			<Info class="h-6 w-6 flex-shrink-0 stroke-current" />
 			<span
-				>The switch below controls the LED via the event system which uses WebSocket under the hood.
-				It will automatically update whenever the LED state changes.</span
+				>Control your hydroponic system's relays using WebSocket for real-time updates. The switches
+				will automatically update whenever any relay state changes.</span
 			>
 		</div>
-		<div class="form-control w-52">
-			<label class="label cursor-pointer">
-				<span class="">Light State?</span>
-				<input
-					type="checkbox"
-					class="toggle toggle-primary"
-					bind:checked={lightState.led_on}
-					onchange={() => {
-						socket.sendEvent('led', lightState);
-					}}
-				/>
-			</label>
+		<div class="flex flex-col gap-y-4">
+			<div class="form-control w-full max-w-xs">
+				<label class="label cursor-pointer">
+					<div class="flex items-center">
+						<Light class="mr-2 h-5 w-5" />
+						<span>Grow Light</span>
+					</div>
+					<input
+						type="checkbox"
+						class="toggle toggle-primary"
+						bind:checked={relayState.light_relay}
+						on:change={() => {
+							socket.sendEvent('relay', relayState);
+						}}
+					/>
+				</label>
+			</div>
+			<div class="form-control w-full max-w-xs">
+				<label class="label cursor-pointer">
+					<div class="flex items-center">
+						<Pump class="mr-2 h-5 w-5" />
+						<span>Water Pump</span>
+					</div>
+					<input
+						type="checkbox"
+						class="toggle toggle-primary"
+						bind:checked={relayState.pump_relay}
+						on:change={() => {
+							socket.sendEvent('relay', relayState);
+						}}
+					/>
+				</label>
+			</div>
+			<div class="form-control w-full max-w-xs">
+				<label class="label cursor-pointer">
+					<div class="flex items-center">
+						<Extra class="mr-2 h-5 w-5" />
+						<span>Extra Relay</span>
+					</div>
+					<input
+						type="checkbox"
+						class="toggle toggle-primary"
+						bind:checked={relayState.extra_relay}
+						on:change={() => {
+							socket.sendEvent('relay', relayState);
+						}}
+					/>
+				</label>
+			</div>
 		</div>
 	</div>
 </SettingsCard>

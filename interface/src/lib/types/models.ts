@@ -56,9 +56,20 @@ export type ApSettings = {
 	subnet_mask: string;
 };
 
-export type LightState = {
-	led_on: boolean;
-};
+export interface RelayState {
+	light_relay: boolean;
+	pump_relay: boolean;
+	extra_relay: boolean;
+}
+
+export interface RelayMqttSettings {
+	mqtt_path: string;
+	name: string;
+	unique_id: string;
+	light_name: string;
+	pump_name: string;
+	extra_name: string;
+}
 
 export type BrokerSettings = {
 	mqtt_path: string;

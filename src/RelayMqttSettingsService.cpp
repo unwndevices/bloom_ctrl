@@ -12,25 +12,25 @@
  *   the terms of the LGPL v3 license. See the LICENSE file for details.
  **/
 
-#include <LightMqttSettingsService.h>
+#include <RelayMqttSettingsService.h>
 
-LightMqttSettingsService::LightMqttSettingsService(PsychicHttpServer *server,
-                                                   ESP32SvelteKit *sveltekit) : _httpEndpoint(LightMqttSettings::read,
-                                                                                              LightMqttSettings::update,
+RelayMqttSettingsService::RelayMqttSettingsService(PsychicHttpServer *server,
+                                                   ESP32SvelteKit *sveltekit) : _httpEndpoint(RelayMqttSettings::read,
+                                                                                              RelayMqttSettings::update,
                                                                                               this,
                                                                                               server,
-                                                                                              LIGHT_BROKER_SETTINGS_PATH,
+                                                                                              RELAY_BROKER_SETTINGS_PATH,
                                                                                               sveltekit->getSecurityManager(),
                                                                                               AuthenticationPredicates::IS_AUTHENTICATED),
-                                                                                _fsPersistence(LightMqttSettings::read,
-                                                                                               LightMqttSettings::update,
+                                                                                _fsPersistence(RelayMqttSettings::read,
+                                                                                               RelayMqttSettings::update,
                                                                                                this,
                                                                                                sveltekit->getFS(),
-                                                                                               LIGHT_BROKER_SETTINGS_FILE)
+                                                                                               RELAY_BROKER_SETTINGS_FILE)
 {
 }
 
-void LightMqttSettingsService::begin()
+void RelayMqttSettingsService::begin()
 {
     _httpEndpoint.begin();
     _fsPersistence.readFromFS();
