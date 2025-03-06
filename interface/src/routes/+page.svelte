@@ -11,7 +11,7 @@
 </script>
 
 <div class="hero bg-base-100 h-screen">
-	<div class="card md:card-side bg-base-200 shadow-primary shadow-2xl">
+	<div class="card md:card-side bg-base-200 shadow-secondary shadow-2xl">
 		<figure class="bg-base-200"><img src={logo} alt="Logo" class="h-auto w-64" /></figure>
 		<div class="card-body w-80">
 			<h2 class="card-title text-center text-2xl">Welcome to ESP32-SvelteKit</h2>

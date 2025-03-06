@@ -45,7 +45,7 @@
 
 	let menuItems = $state([
 		{
-			title: 'Demo App',
+			title: 'Hydro Control',
 			icon: Control,
 			href: '/demo',
 			feature: true

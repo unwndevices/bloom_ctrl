@@ -9,9 +9,9 @@ export const load = (async ({ fetch }) => {
 	const item = await result.json();
 	return {
 		features: item,
-		title: 'ESP32-SvelteKit',
-		github: 'theelims/ESP32-sveltekit',
-		copyright: '2024 theelims',
-		appName: 'ESP32 SvelteKit'
+		title: 'Bloom by Greenverse',
+		github: 'unwndevices/bloom_ctrl',
+		copyright: '2025 Greenverse',
+		appName: 'Bloom Control'
 	};
 }) satisfies LayoutLoad;
