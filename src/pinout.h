@@ -7,7 +7,7 @@
 
 #define BUTTON 9
 
-// #define SENSOR_TEMP 4
+#define SENSOR_TEMP 4
 // #define SENSOR_PH 5
 // #define SENSOR_EC 3
 // #define SENSOR_LEVEL 1
