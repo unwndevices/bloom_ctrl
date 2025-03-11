@@ -1,13 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { telemetry } from '$lib/stores/telemetry';
-	import { modals } from 'svelte-modals';
 	import { user } from '$lib/stores/user';
-	import ConfirmDialog from '$lib/components/ConfirmDialog.svelte';
 	import WiFiOff from '~icons/tabler/wifi-off';
 	import Hamburger from '~icons/tabler/menu-2';
-	import Power from '~icons/tabler/power';
-	import Cancel from '~icons/tabler/x';
 	import RssiIndicator from '$lib/components/RSSIIndicator.svelte';
 	import BatteryIndicator from '$lib/components/BatteryIndicator.svelte';
 	import UpdateIndicator from '$lib/components/UpdateIndicator.svelte';
@@ -68,14 +64,6 @@
 				soc={$telemetry.battery.soc}
 				class="h-7 w-7"
 			/>
-		</div>
-	{/if}
-
-	{#if page.data.features.sleep}
-		<div class="flex-none">
-			<button class="btn btn-square btn-ghost h-9 w-10" onclick={confirmSleep}>
-				<Power class="text-error h-9 w-9" />
-			</button>
 		</div>
 	{/if}
 </div>

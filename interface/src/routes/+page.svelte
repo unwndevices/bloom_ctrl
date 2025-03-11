@@ -12,30 +12,16 @@
 
 <div class="hero bg-base-100 h-screen">
 	<div class="card md:card-side bg-base-200 shadow-secondary shadow-2xl">
-		<figure class="bg-base-200"><img src={logo} alt="Logo" class="h-auto w-64 aspect-auto" /></figure>
+		<figure class="bg-base-200">
+			<img src={logo} alt="Logo" class="h-auto w-64 aspect-auto" />
+		</figure>
 		<div class="card-body w-80">
-			<h2 class="card-title text-center text-2xl">Welcome to ESP32-SvelteKit</h2>
-			<p class="py-6 text-center">
-				A simple, secure and extensible framework for IoT projects for ESP32 platforms with
-				responsive <a
-					href="https://kit.svelte.dev/"
-					class="link"
-					target="_blank"
-					rel="noopener noreferrer">SvelteKit</a
-				>
-				front-end built with
-				<a href="https://tailwindcss.com/" class="link" target="_blank" rel="noopener noreferrer"
-					>TailwindCSS</a
-				>
-				and
-				<a href="https://daisyui.com/" class="link" target="_blank" rel="noopener noreferrer"
-					>DaisyUI</a
-				>.
-			</p>
+			<h2 class="card-title text-center text-2xl">Welcome to Bloom Control by Greenverse</h2>
+			<p class="py-6 text-center">An easy to use control system for your Hydroponic System.</p>
 			<a
 				class="btn btn-primary"
-				href="/demo"
-				onclick={() => notifications.success('You did it!', 1000)}>Start Demo</a
+				href="/control"
+				onclick={() => notifications.success('You did it!', 1000)}>Start Control</a
 			>
 		</div>
 	</div>
