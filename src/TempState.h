@@ -2,13 +2,14 @@
 #define TempState_h
 
 #include <ArduinoJson.h>
+#include <stdint.h>
 
 #define TEMP_HISTORY_SIZE 100 // Store last 100 readings
 
 struct TempReading
 {
     float temperature;
-    unsigned long timestamp;
+    uint64_t timestamp; // Unix timestamp in milliseconds
 };
 
 class TempState
@@ -58,7 +59,7 @@ public:
                 if (i >= TEMP_HISTORY_SIZE)
                     break;
                 tempState.history[i].temperature = reading["temperature"].as<float>();
-                tempState.history[i].timestamp = reading["timestamp"].as<unsigned long>();
+                tempState.history[i].timestamp = reading["timestamp"].as<uint64_t>();
                 i++;
             }
             changed = true;

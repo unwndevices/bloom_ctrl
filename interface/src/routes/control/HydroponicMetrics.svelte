@@ -17,8 +17,11 @@
 	let ecChart: Chart;
 	let levelChartElement: HTMLCanvasElement;
 	let levelChart: Chart;
+	let tempSocket: WebSocket;
 
-	// Mockup data generation
+	let tempReadings: { x: number; y: number }[] = [];
+
+	// Mockup data generation for EC and level (keeping these for now)
 	const generateMockData = (count: number, min: number, max: number) => {
 		const data = [];
 		const now = Date.now();
@@ -31,6 +34,63 @@
 		return data;
 	};
 
+	function connectTempWebSocket() {
+		const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+		const wsUrl = `${protocol}//${window.location.host}/ws/tempState`;
+
+		tempSocket = new WebSocket(wsUrl);
+
+		tempSocket.onmessage = (event) => {
+			const data = JSON.parse(event.data);
+
+			// Handle initial history data and updates
+			if (data.history && Array.isArray(data.history)) {
+				// Convert history data to chart format, ensuring proper timestamp handling
+				tempReadings = data.history
+					.map((reading: { temperature: number; timestamp: number }) => ({
+						x: reading.timestamp, // Already in milliseconds from backend
+						y: reading.temperature
+					}))
+					.sort((a: { x: number }, b: { x: number }) => a.x - b.x); // Sort by timestamp to ensure proper order
+			} else {
+				// Handle real-time updates with current temperature
+				tempReadings = [
+					...tempReadings,
+					{
+						x: data.timestamp || Date.now(), // Use server timestamp if available, fallback to client time
+						y: data.temperature
+					}
+				];
+
+				// Keep only last 100 readings
+				if (tempReadings.length > 100) {
+					tempReadings = tempReadings.slice(-100);
+				}
+			}
+
+			// Update chart with new data
+			if (tempChart) {
+				tempChart.data.datasets[0].data = [...tempReadings];
+
+				// Adjust x-axis scale based on data range
+				const timeRange =
+					tempReadings.length > 1
+						? tempReadings[tempReadings.length - 1].x - tempReadings[0].x
+						: 3600000; // 1 hour default
+
+				const unit = timeRange > 86400000 ? 'day' : timeRange > 3600000 ? 'hour' : 'minute';
+
+				tempChart.options.scales.x.time.unit = unit;
+				tempChart.update('none');
+			}
+		};
+
+		tempSocket.onclose = () => {
+			// Attempt to reconnect after 5 seconds if connection is lost
+			setTimeout(connectTempWebSocket, 5000);
+		};
+	}
+
 	onMount(() => {
 		// Temperature Chart
 		tempChart = new Chart(tempChartElement, {
@@ -42,7 +102,7 @@
 						borderColor: daisyColor('--p'),
 						backgroundColor: daisyColor('--p', 50),
 						borderWidth: 2,
-						data: generateMockData(24, 20, 25), // 2 hours of data between 20-25°C
+						data: tempReadings,
 						tension: 0.4
 					}
 				]
@@ -56,23 +116,35 @@
 					},
 					tooltip: {
 						mode: 'index',
-						intersect: false
+						intersect: false,
+						callbacks: {
+							title: (context) => {
+								// Format timestamp to local date and time
+								const timestamp = context[0].parsed.x;
+								return new Date(timestamp).toLocaleString();
+							}
+						}
 					}
 				},
 				scales: {
 					x: {
 						type: 'time',
 						time: {
-							unit: 'minute',
 							displayFormats: {
-								minute: 'HH:mm'
-							}
+								minute: 'HH:mm',
+								hour: 'MMM D, HH:mm',
+								day: 'MMM D'
+							},
+							tooltipFormat: 'MMM D, HH:mm:ss'
 						},
 						grid: {
 							color: daisyColor('--bc', 10)
 						},
 						ticks: {
-							color: daisyColor('--bc')
+							color: daisyColor('--bc'),
+							maxRotation: 0,
+							autoSkip: true,
+							maxTicksLimit: 8
 						}
 					},
 					y: {
@@ -91,6 +163,9 @@
 				}
 			}
 		});
+
+		// Connect to temperature WebSocket
+		connectTempWebSocket();
 
 		// EC Chart
 		ecChart = new Chart(ecChartElement, {
@@ -212,18 +287,22 @@
 			}
 		});
 
-		// Update mockup data every 5 minutes
+		// Update only mockup data for EC and level every 5 minutes
 		const interval = setInterval(() => {
-			tempChart.data.datasets[0].data = generateMockData(24, 20, 25);
 			ecChart.data.datasets[0].data = generateMockData(24, 1.0, 2.0);
 			levelChart.data.datasets[0].data = generateMockData(24, 70, 100);
 
-			tempChart.update('none');
 			ecChart.update('none');
 			levelChart.update('none');
 		}, 300000);
 
 		return () => clearInterval(interval);
+	});
+
+	onDestroy(() => {
+		if (tempSocket) {
+			tempSocket.close();
+		}
 	});
 </script>
 
